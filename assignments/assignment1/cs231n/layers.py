@@ -818,13 +818,13 @@ def softmax_loss(x, y):
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
     # forward pass
-    P = np.exp(x - x.max(axis=1, keepdims=True))
-    P /=  P.sum(axis=1, keepdims=True)
-    loss = -np.log(P[range(len(y)), y]).mean()
+    expd = np.exp(x - x.max(axis=1, keepdims=True))
+    expd /=  expd.sum(axis=1, keepdims=True)
+    loss = -np.log(expd[range(len(y)), y]).mean()
 
     # backward pass
-    P[range(len(y)), y] -= 1
-    dx = P / len(y)
+    expd[range(len(y)), y] -= 1
+    dx = expd / len(y)
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
